@@ -1,13 +1,11 @@
 import {Controller, useForm} from 'react-hook-form';
 import {Button, StyleSheet, Text, TextInput, View , Alert, ActivityIndicator} from 'react-native';
-import { HelperText } from 'react-native-paper';
 import { log } from 'react-native-reanimated';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { LoginService } from '../apis/service';
-import { RegexEmail } from '../Constan/Regex';
+import {  RegisterService } from '../apis/service';
 import { addUser } from '../redux/userSlice';
-export default function Login({ navigation }) {
+export default function Register({ navigation }) {
   const dispatch = useDispatch()
   const {
     control,
@@ -17,16 +15,17 @@ export default function Login({ navigation }) {
     defaultValues: {
       username: '',
       password: '',
+      name : ''
     },
   });
   const {isLoading,mutate} = useMutation({
-    mutationFn: newTodo => {
-      return LoginService(newTodo)
+    mutationFn: Account => {
+      return RegisterService(Account)
     },
     onError: (error, variables, context) => {
       Alert.alert(
             "Login Failed",
-            `Invalid Email or Password`,
+            `Email is Exist`,
             [
               { text: "OK" }
             ]
@@ -37,7 +36,6 @@ export default function Login({ navigation }) {
         navigation.navigate('Home')
     },
   })
-  console.log(errors.username);
   const onSubmit = async(data) => {
     mutate(data)
   };
@@ -53,15 +51,11 @@ export default function Login({ navigation }) {
           borderWidth: 1,
           borderRadius: 20,
         }}>
-        <Text style={{marginBottom : 10}}>Sign In</Text>
+        <Text>Sing Up</Text>
         <Controller
           control={control}
           rules={{
             required: true,
-            pattern : {
-              value : RegexEmail,
-              message : "Invalid Type Email"
-            }
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -71,19 +65,15 @@ export default function Login({ navigation }) {
               onChangeText={onChange}
               value={value}
               autoCapitalize='none'
-              
             />
           )}
           name="username"
         />
- {errors.username &&  <HelperText type="error" visible={errors.username !== undefined}>
-      {errors.username.message}
-      </HelperText>}
+
         <Controller
           control={control}
           rules={{
             maxLength: 100,
-            required : true
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
@@ -98,9 +88,24 @@ export default function Login({ navigation }) {
           )}
           name="password"
         />
-         <HelperText type="error" visible={errors.password !== undefined}>
-        password is Require!
-      </HelperText>
+
+<Controller
+          control={control}
+          rules={{
+            maxLength: 100,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              style={styles.border}
+              onBlur={onBlur}
+              placeholder="Name"
+              onChangeText={onChange}
+              value={value}
+              autoCapitalize='none'
+            />
+          )}
+          name="name"
+        />
   {isLoading ?  <ActivityIndicator size="large" /> : <Button
           style={{borderColor: 'gray', borderWidth: 1, padding: 10}}
           title="Submit"
@@ -117,8 +122,8 @@ export default function Login({ navigation }) {
         </View>
         <Button
           style={{borderColor: 'gray', borderWidth: 1, padding: 10}}
-          title="Register"
-          onPress={() =>  navigation.navigate('Register')}
+          title="Login"
+          onPress={() =>  navigation.navigate('Login')}
         />
       </View>
     </View>
@@ -145,8 +150,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     padding: 8,
-    marginBottom : 5,
     borderRadius: 10,
+    marginTop: 20,
     minWidth: '100%',
     textTransform: 'uppercase'
   },

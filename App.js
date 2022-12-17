@@ -19,11 +19,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screen/Login';
 import YourOrder from './Screen/YourOrder';
 import ConfirmOrder from './Screen/ConfirmOrder';
+import { Provider } from 'react-redux'
+import { store } from './redux/store';
+import { QueryClient, QueryClientProvider } from 'react-query'
+import Register from './Screen/Register';
+
 const Stack = createStackNavigator();
+const queryClient = new QueryClient()
 
 const App = () => {
   return (
     <>
+    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+
+  
     <NavigationContainer>
     <Stack.Navigator
       initialRouteName="Home"
@@ -48,6 +58,13 @@ const App = () => {
         }}
       />
       <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          title: 'Register',
+        }}
+      />
+      <Stack.Screen
         name="YourOrder"
         component={YourOrder}
         options={{
@@ -64,7 +81,10 @@ const App = () => {
     </Stack.Navigator>
     {/* {<Login />} */}
     </NavigationContainer>
+    </QueryClientProvider>
+    </Provider>
     </>
+    
   );
 };
 export default App;

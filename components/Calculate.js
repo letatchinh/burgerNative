@@ -1,20 +1,49 @@
-import { View, Text, Button } from 'react-native'
+import { ActivityIndicator, Alert, View} from 'react-native'
 import React from 'react'
 import ItemCalculate from './ItemCalculate'
 import AppButton from './AppButton'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-export default function Calculate({onPress}) {
+import { useSelector } from 'react-redux'
+import { useMutation } from 'react-query'
+import { AddOrderSerive } from '../apis/service'
+export default function Calculate() {
+  const burgerInfo = useSelector(state => state.burger)
+  const user = useSelector(state => state.user.user)
+  const {isLoading,mutate} = useMutation({
+    mutationFn: newOrder => {
+      return AddOrderSerive(newOrder)
+    },
+    onError: (error, variables, context) => {
+   console.log(error);
+    },
+    onSuccess: (data, variables, context) => {
+      Alert.alert(
+        "Success",
+        `Order Success`,
+        [
+          { text: "OK" }
+        ]
+      );
+    },
+  })
+  const addOrder = () => {
+    const newOrder = {
+      email : user.username,
+      order : burgerInfo.order,
+      price : burgerInfo.totalBill,
+      timeStamp : Date.now()
+    }
+    mutate(newOrder)
+  }
   return (
-    <View style={{justifyContent : 'center' , alignItems : 'center' , marginTop : 70}}>
+    <View style={{justifyContent : 'center' , alignItems : 'center' , marginTop : 20}}>
       <View style={{width : '70%',borderWidth : 1 , padding : 5 , marginBottom : 10 ,borderRadius : 10}}>
-      <ItemCalculate />
-      <ItemCalculate />
-      <ItemCalculate />
-      <ItemCalculate />
+      <ItemCalculate price={0.2} item="salad"/>
+      <ItemCalculate price={0.5} item="bacon"/>
+      <ItemCalculate  price={0.6} item="cheese"/>
+      <ItemCalculate price={1} item="meat"/>
       </View>
-      {/* <Button title='Check out'/> */}
-      <AppButton title="Check out" onPress={onPress}/>
+      {isLoading ? <ActivityIndicator size="large" /> :  <AppButton title="Check out" onPress={addOrder}/>}
+     
     </View>
   )
 }
