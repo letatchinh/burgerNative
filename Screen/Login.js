@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, StyleSheet, Text, TextInput, View , Alert, ActivityIndicator} from 'react-native';
 import { HelperText } from 'react-native-paper';
@@ -32,7 +33,9 @@ export default function Login({ navigation }) {
             ]
           );
     },
-    onSuccess: (data, variables, context) => {
+    onSuccess: async(data, variables, context) => {
+      await AsyncStorage.setItem('userBurger', JSON.stringify(data.data))
+
       dispatch(addUser(data.data))
         navigation.navigate('Home')
     },

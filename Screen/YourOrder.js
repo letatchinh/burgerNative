@@ -8,20 +8,22 @@ import {  getOrderByEmailInfinityScroll } from '../apis/service'
 import { IOScrollView, InView } from 'react-native-intersection-observer'
 
 export default function YourOrder() {
-  const user = useSelector(state => state.user.user) || null
+  const user = useSelector(state => state.user.user)
   const {data,isFetchingNextPage , isFetching,refetch, hasNextPage , fetchNextPage } = useInfiniteQuery(
     [user.username],
     ({ pageParam = 1 }) => getOrderByEmailInfinityScroll({pageParam,email : user.username}),
     {
       getNextPageParam :(_lastPage , pages) => {
-        if(pages.length < _lastPage.pages){
+        if(pages) if(pages.length < _lastPage.pages){
           return pages.length + 1
         }
         else{
           return undefined
         }
+       
       },
-      enabled : user !== null
+      enabled : user !== null,
+      cacheTime : 0
     },
   );
   return (
@@ -32,15 +34,14 @@ export default function YourOrder() {
       <AppButton title='Log out'/>
     </View>
     <View style={{justifyContent : 'center' , alignItems : 'center'}}>
-    {data && data.pages.map(e => e.arrResponse.map((e,i) =>  <ItemOrders key={i} orders={e}/>))}
+    {data && data.pages && data.pages.map(e => e.arrResponse.map((e,i) =>  <ItemOrders key={i} orders={e}/>))}
     </View>
-    {isFetching &&  !isFetchingNextPage &&<ActivityIndicator size="large" />}
-        {isFetchingNextPage && <ActivityIndicator />}
-       
-        
     <InView onChange={(inView) => inView && fetchNextPage()}>
     <Button disabled={!hasNextPage} onPress={fetchNextPage} title='next'/>
     </InView>
+    {isFetching &&  !isFetchingNextPage &&<ActivityIndicator size="large" />}
+        {isFetchingNextPage && <ActivityIndicator />}
+   
   </IOScrollView>  
     </SafeAreaView>
   )
