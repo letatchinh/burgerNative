@@ -12,3 +12,16 @@ export const AddOrderSerive = async(order) => {
     const res = await axiosClient.post("api/addOrderReactNative",order)
     return res
 }
+export const getOrderByEmail = async(email) => {
+    const res = await axiosClient.get(`api/userOrder/${email}`)
+    return res
+}
+export const getOrderByEmailInfinityScroll = async(action) => {
+    console.log(action);
+    try{
+        const res = await axiosClient.get(`api/userOrder/${action.email}?page=${action.pageParam}&limit=4`)
+        return res.data
+    } catch (error) {
+        console.log(error);
+    }
+}
