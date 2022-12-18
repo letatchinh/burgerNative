@@ -17,7 +17,6 @@ export const getOrderByEmail = async(email) => {
     return res
 }
 export const getOrderByEmailInfinityScroll = async(action) => {
-    console.log(action);
     try{
         const res = await axiosClient.get(`api/userOrder/${action.email}?page=${action.pageParam}&limit=4`)
         return res.data

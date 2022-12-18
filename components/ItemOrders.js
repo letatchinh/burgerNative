@@ -20,7 +20,7 @@ export default function ItemOrders({orders}) {
       </View>
       <View style={{justifyContent : 'space-between' , flexDirection : 'row' , marginTop : 40}}>
         <Text>Price</Text>
-        <Text>{order.price}</Text>
+        <Text>{orders.price}</Text>
       </View>
     </View>
   )
