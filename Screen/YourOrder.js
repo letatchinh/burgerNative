@@ -1,16 +1,20 @@
 import { View, Text, SafeAreaView, ScrollView, Button, ActivityIndicator } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import AppButton from '../components/AppButton'
 import ItemOrders from '../components/ItemOrders'
 import { useInfiniteQuery } from 'react-query'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {  getOrderByEmailInfinityScroll } from '../apis/service'
 import { IOScrollView, InView } from 'react-native-intersection-observer'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { removeItem, _retrieveData } from '../AsynStored'
+import { removeUser } from '../redux/userSlice'
 
-export default function YourOrder() {
-  const user = useSelector(state => state.user.user)
+export default function YourOrder({ navigation }) {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user.user) || null
   const {data,isFetchingNextPage , isFetching,refetch, hasNextPage , fetchNextPage } = useInfiniteQuery(
-    [user.username],
+    [user && user.username],
     ({ pageParam = 1 }) => getOrderByEmailInfinityScroll({pageParam,email : user.username}),
     {
       getNextPageParam :(_lastPage , pages) => {
@@ -26,12 +30,16 @@ export default function YourOrder() {
       cacheTime : 0
     },
   );
+    const logout = () => {
+      removeItem()
+      dispatch(removeUser())
+      navigation.navigate("Home")
+    }
   return (
     <SafeAreaView style={{flex : 1}}>
     <IOScrollView style={{padding : 10}}>
-    <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row'}}>
-      <Text>Orders</Text>
-      <AppButton title='Log out'/>
+    <View style={{justifyContent : 'flex-end' , alignItems : 'center' , flexDirection : 'row'}}>
+      <AppButton onPress={logout} title='Log out'/>
     </View>
     <View style={{justifyContent : 'center' , alignItems : 'center'}}>
     {data && data.pages && data.pages.map(e => e.arrResponse.map((e,i) =>  <ItemOrders key={i} orders={e}/>))}

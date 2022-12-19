@@ -16,8 +16,8 @@ export default function Login({ navigation }) {
     formState: {errors},
   } = useForm({
     defaultValues: {
-      username: '',
-      password: '',
+      username: 'letatchinh1@gmail.com',
+      password: '123123',
     },
   });
   const {isLoading,mutate} = useMutation({
@@ -35,7 +35,6 @@ export default function Login({ navigation }) {
     },
     onSuccess: async(data, variables, context) => {
       await AsyncStorage.setItem('userBurger', JSON.stringify(data.data))
-
       dispatch(addUser(data.data))
         navigation.navigate('Home')
     },
