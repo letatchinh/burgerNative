@@ -9,6 +9,7 @@ import { IOScrollView, InView } from 'react-native-intersection-observer'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { removeItem, _retrieveData } from '../AsynStored'
 import { removeUser } from '../redux/userSlice'
+import messaging from '@react-native-firebase/messaging';
 
 export default function YourOrder({ navigation }) {
   const dispatch = useDispatch()
@@ -35,6 +36,13 @@ export default function YourOrder({ navigation }) {
       dispatch(removeUser())
       navigation.navigate("Home")
     }
+    useEffect(() => {
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
+  
+      return unsubscribe;
+    }, []);
   return (
     <SafeAreaView style={{flex : 1}}>
     <IOScrollView style={{padding : 10}}>

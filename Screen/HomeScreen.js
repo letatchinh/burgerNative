@@ -1,12 +1,36 @@
 
 import {View, Text, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Burger from '../components/Burger';
 import Calculate from '../components/Calculate';
 import {  useSelector } from 'react-redux';
 import HeaderApp from '../layout/HeaderApp';
+import messaging from '@react-native-firebase/messaging';
+
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
+
+
+
+  useEffect(() => {
+    async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+    
+  }
+  else{
+    console.log(enabled);
+  }
+}
+     requestUserPermission()
+ 
+  },[])
+     
   return (
     <SafeAreaView >
     <HeaderApp navigation={navigation}/>
