@@ -6,6 +6,8 @@ import Calculate from '../components/Calculate';
 import {  useSelector } from 'react-redux';
 import HeaderApp from '../layout/HeaderApp';
 import messaging from '@react-native-firebase/messaging';
+import Mapbox from '../components/Mapbox';
+// import Geolocation from '@react-native-community/geolocation';
 
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
@@ -35,15 +37,22 @@ const handleRequest = async() => {
  await getToken()
  messaging().onNotificationOpenedApp(remoteMess => {
   Alert.alert("Open")
-  console.log("Open")
+  console.log("remoteMess",remoteMess);
  })
+ messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
  const unsubcribe = messaging().onMessage(async (mess) => {
   console.log("FOREGROUND",mess);
-  Alert.alert("NOTIFY Foreground")
+  Alert.alert(mess.notification.body,mess.notification.title)
  })
  return unsubcribe
+ 
 }
 handleRequest()
+// Geolocation.getCurrentPosition((info => console.log(info)));
+
+
   },[])
      
   return (
@@ -59,7 +68,7 @@ handleRequest()
    </View>
     <Calculate onPress={() => navigation.navigate('ConfirmOrder')}/>
   </View>
-  
+  <Mapbox />
 
     </SafeAreaView>
   );
