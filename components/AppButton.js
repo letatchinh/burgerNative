@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function AppButton({ onPress, title , disable }) {
   return (
-    <TouchableOpacity disabled={disable} onPress={onPress} style={{...styles.appButtonContainer , borderColor : !disable ? "#2296F3" : "#999"}}>
+    <TouchableOpacity disabled={disable} onPress={onPress} style={{...styles.appButtonContainer , borderColor : !disable ? "#2296F3" : "#999" , backgroundColor : 'white'}}>
     <Text style={{...styles.appButtonText , color : !disable ? "#2296F3" : "#999"}}>{title}</Text>
   </TouchableOpacity>
   )

@@ -9,10 +9,10 @@ export default function ItemCalculate({item,price}) {
   const burger = useSelector(state => state.burger.order[item])
   return (
     <View style={{justifyContent : 'space-between' , flexDirection : 'row' , alignItems : 'center' , margin : 5}}>
-      <Text style={{textTransform : 'capitalize'}}>{item} ({price} $)</Text>
+      <Text style={{textTransform : 'capitalize' , color : 'black'}}>{item} ({price} $)</Text>
       <View style={{flexDirection : 'row' , alignItems : 'center' , justifyContent : 'space-between' , width : '40%'}}>
         <AppButton disable={burger === 0}  onPress={() => dispatch(decrementByAmount({name : item,price}))} title='-'/>
-        <Text>{burger}</Text>
+        <Text style={{color : 'black'}}>{burger}</Text>
         <AppButton onPress={() => dispatch(incrementByAmount({name : item,price}))} title='+'/>
       </View>
     </View>

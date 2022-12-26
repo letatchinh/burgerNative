@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, StyleSheet, Text, TextInput, View , Alert, ActivityIndicator} from 'react-native';
 import { HelperText } from 'react-native-paper';
-import { log } from 'react-native-reanimated';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { LoginService } from '../apis/service';
@@ -55,7 +54,7 @@ export default function Login({ navigation }) {
           borderWidth: 1,
           borderRadius: 20,
         }}>
-        <Text style={{marginBottom : 10}}>Sign In</Text>
+        <Text style={{marginBottom : 10 , color : 'black'}}>Sign In</Text>
         <Controller
           control={control}
           rules={{
@@ -144,12 +143,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   border: {
+    color : 'black',
     borderColor: 'gray',
     borderWidth: 1,
     padding: 8,
     marginBottom : 5,
     borderRadius: 10,
     minWidth: '100%',
-    textTransform: 'uppercase'
   },
 });
