@@ -66,7 +66,7 @@ handleRequest()
       <Text style={{color : 'black'}}>{totalBill}$</Text>
     </View>
    </View>
-    <Calculate onPress={() => navigation.navigate('ConfirmOrder')}/>
+    <Calculate/>
   </View>
   <Mapbox />
 

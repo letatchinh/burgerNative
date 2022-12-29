@@ -13,14 +13,14 @@ export default function ItemOrders({orders}) {
       <View>
       {ar.map((e,i) => 
       <View key={i} style={{justifyContent : 'space-between' , flexDirection : 'row'}}>
-        <Text>{e.name}</Text>
-        <Text>{e.value}</Text>
+        <Text style={{color : 'black'}}>{e.name}</Text>
+        <Text style={{color : 'black'}}>{e.value}</Text>
       </View>)}
       
       </View>
       <View style={{justifyContent : 'space-between' , flexDirection : 'row' , marginTop : 40}}>
-        <Text>Price</Text>
-        <Text>{orders.price}</Text>
+        <Text style={{color : 'black'}}>Price</Text>
+        <Text style={{color : 'black'}}>{orders.price}</Text>
       </View>
     </View>
   )

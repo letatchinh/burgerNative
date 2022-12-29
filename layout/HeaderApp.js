@@ -32,7 +32,7 @@ useEffect(() => {
     <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row' , padding : 10}}>
     {user ?  <Button onPress={() => navigation.navigate('YourOrder')} title='Your order'/> : <Button title='Home'/>}
       {user ?  <View style={{flexDirection : 'row' , alignItems : 'center'}}>
-      <Text>Hello , {user.name}</Text>
+      <Text style={{color : 'black'}}>Hello , {user.name}</Text>
       <Button onPress={removeItem}  title='Logout'/>
       </View> :  <Button onPress={() => navigation.navigate('Login')}  title='Login'/>}
     </View>

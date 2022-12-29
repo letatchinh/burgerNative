@@ -1,9 +1,10 @@
 import { View, Text, PermissionsAndroid, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Geolocation from '@react-native-community/geolocation';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 export default function Mapbox() {
+  // enableLatestRenderer();
     const [info,setInfo] = useState({})
     
     useEffect(() => {
@@ -45,7 +46,8 @@ export default function Mapbox() {
   return (
      <View >
       <Text style={{color : 'black'}}>Mapbox</Text>
-      <MapView style={{flex : 1}}
+      <MapView  provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+       style={styles.map}
     initialRegion={{
       latitude: 37.78825,
       longitude: -122.4324,
@@ -57,24 +59,15 @@ export default function Mapbox() {
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-
-  },
-  myMap: {
-    flex: 2,
-    backgroundColor: "black",
-    width: "100%",
-    marginTop: 30,
-    marginBottom: 30,
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   map: {
-    width: "100%",
-    height: "100%",
+    ...StyleSheet.absoluteFillObject,
   },
-});
+ });
