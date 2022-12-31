@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, TouchableHighlight, StyleSheet } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,8 +33,22 @@ useEffect(() => {
     {user ?  <Button onPress={() => navigation.navigate('YourOrder')} title='Your order'/> : <Button title='Home'/>}
       {user ?  <View style={{flexDirection : 'row' , alignItems : 'center'}}>
       <Text style={{color : 'black'}}>Hello , {user.name}</Text>
-      <Button onPress={removeItem}  title='Logout'/>
+      {/* <Button onPress={removeItem}  title='Logout'/> */}
+      <TouchableHighlight underlayColor="#87CEFA" style={styles.longButton}   onLongPress={removeItem}>
+          <View >
+            <Text style={{color : "#1E90FF"}}>Log Out</Text>
+          </View>
+        </TouchableHighlight>
       </View> :  <Button onPress={() => navigation.navigate('Login')}  title='Login'/>}
     </View>
   )
 }
+const styles = StyleSheet.create({
+  longButton : {
+    borderWidth : 1,
+    borderColor : '#1E90FF',
+    padding : 10,
+    borderRadius : 10,
+    marginHorizontal : 10
+  }
+})

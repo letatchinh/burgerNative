@@ -1,5 +1,5 @@
 
-import {View, Text, SafeAreaView, Alert} from 'react-native';
+import {View, Text, SafeAreaView, Alert, Image, StyleSheet} from 'react-native';
 import React, { useCallback, useEffect } from 'react';
 import Burger from '../components/Burger';
 import Calculate from '../components/Calculate';
@@ -59,7 +59,10 @@ handleRequest()
     <SafeAreaView >
     <HeaderApp navigation={navigation}/>
   <View>
-    <Burger />
+    {/* <Burger /> */}
+    <View style={{padding : 5 }}>
+    <Image style={styles.imageBurger} source={require('../assets/All-American-Hamburgers_EXPS_CWAS22_29321_P2_MD_04_19_1b_v2.jpeg')}/>
+    </View>
    <View style={{justifyContent : 'center' , alignItems : 'center' , marginTop : 20}}>
    <View style={{flexDirection : 'row' , justifyContent : 'space-between' , alignItems : 'center' , width : '70%' , borderRadius : 10 , borderWidth : 1 , padding : 10}}>
       <Text style={{color : 'black'}}>Total</Text>
@@ -68,8 +71,14 @@ handleRequest()
    </View>
     <Calculate/>
   </View>
-  <Mapbox />
+  {/* <Mapbox /> */}
 
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  imageBurger : {
+    width : 400,
+    height : 400,
+  }
+})
