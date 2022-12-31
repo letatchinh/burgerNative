@@ -1,5 +1,5 @@
 
-import {View, Text, SafeAreaView, Alert, Image, StyleSheet} from 'react-native';
+import {View, Text, SafeAreaView, Alert, Image, StyleSheet, ScrollView} from 'react-native';
 import React, { useCallback, useEffect } from 'react';
 import Burger from '../components/Burger';
 import Calculate from '../components/Calculate';
@@ -57,6 +57,7 @@ handleRequest()
      
   return (
     <SafeAreaView >
+    <ScrollView>
     <HeaderApp navigation={navigation}/>
   <View>
     {/* <Burger /> */}
@@ -69,9 +70,10 @@ handleRequest()
       <Text style={{color : 'black'}}>{totalBill}$</Text>
     </View>
    </View>
-    <Calculate/>
+    <Calculate navigation={navigation}/>
   </View>
   {/* <Mapbox /> */}
+    </ScrollView>
 
     </SafeAreaView>
   );

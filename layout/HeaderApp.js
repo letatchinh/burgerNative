@@ -31,12 +31,12 @@ useEffect(() => {
 
   return (
     <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row' , padding : 10}}>
-    {user ?  <Button onPress={() => navigation.navigate('YourOrder')} title='Your order'/> : <Button title='Home'/>}
+    {user ?  <MyTouchleHightLightButton onPress={() => navigation.navigate('YourOrder')} title="Your Order"/> : <MyTouchleHightLightButton title="Home"/>}
       {user ?  <View style={{flexDirection : 'row' , alignItems : 'center'}}>
       <Text style={{color : 'black'}}>Hello , {user.name}</Text>
       {/* <Button onPress={removeItem}  title='Logout'/> */}
       <MyTouchleHightLightButton onLongPress={removeItem} title="Log Out"/>
-      </View> :  <Button onPress={() => navigation.navigate('Login')}  title='Login'/>}
+      </View> :  <MyTouchleHightLightButton onPress={() => navigation.navigate('Login')} title="Login"/>}
     </View>
   )
 }

@@ -5,6 +5,7 @@ import { HelperText } from 'react-native-paper';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { LoginService } from '../apis/service';
+import MyTouchleHightLightButton from '../components/MyTouchleHightLightButton';
 import { RegexEmail } from '../Constan/Regex';
 import { addUser } from '../redux/userSlice';
 export default function Login({ navigation }) {
@@ -20,9 +21,8 @@ export default function Login({ navigation }) {
     },
   });
   const {isLoading,mutate} = useMutation({
-    mutationFn: newTodo => {
-      return LoginService(newTodo)
-    },
+    mutationFn: newTodo => LoginService(newTodo)
+    ,
     onError: (error, variables, context) => {
       Alert.alert(
             "Login Failed",
@@ -102,11 +102,7 @@ export default function Login({ navigation }) {
          <HelperText type="error" visible={errors.password !== undefined}>
         password is Require!
       </HelperText>
-  {isLoading ?  <ActivityIndicator size="large" /> : <Button
-          style={{borderColor: 'gray', borderWidth: 1, padding: 10}}
-          title="Submit"
-          onPress={handleSubmit(onSubmit)}
-        /> }
+  {isLoading ?  <ActivityIndicator size="large" /> : <MyTouchleHightLightButton onPress={handleSubmit(onSubmit)} title="Login"/> }
        
        
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -116,8 +112,8 @@ export default function Login({ navigation }) {
           </View>
           <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
         </View>
-        <Button
-          style={{borderColor: 'gray', borderWidth: 1, padding: 10}}
+        <MyTouchleHightLightButton
+         
           title="Register"
           onPress={() =>  navigation.navigate('Register')}
         />

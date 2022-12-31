@@ -5,9 +5,9 @@ import AppButton from './AppButton'
 import { useSelector } from 'react-redux'
 import { useMutation } from 'react-query'
 import { AddOrderSerive } from '../apis/service'
-export default function Calculate() {
+export default function Calculate({navigation}) {
   const burgerInfo = useSelector(state => state.burger)
-  const user = useSelector(state => state.user.user)
+  const user = useSelector(state => state.user.user) || null
   const {isLoading,mutate} = useMutation({
     mutationFn: newOrder => {
       return AddOrderSerive(newOrder)
@@ -26,13 +26,19 @@ export default function Calculate() {
     },
   })
   const addOrder = () => {
-    const newOrder = {
-      email : user.username,
-      order : burgerInfo.order,
-      price : burgerInfo.totalBill,
-      timeStamp : Date.now()
+    if(user){
+      const newOrder = {
+        email : user.username,
+        order : burgerInfo.order,
+        price : burgerInfo.totalBill,
+        timeStamp : Date.now()
+      }
+      mutate(newOrder)
     }
-    mutate(newOrder)
+    else{
+      navigation.navigate("Login")
+    }
+  
   }
   return (
     <View style={{justifyContent : 'center' , alignItems : 'center' , marginTop : 20}}>
