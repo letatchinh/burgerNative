@@ -44,7 +44,6 @@ const ModalLoading = ({loading}) => {
       <Modal visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
             <ActivityIndicator
               color="#0000ff"
               style={{marginVertical: 16}}
