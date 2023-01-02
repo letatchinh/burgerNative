@@ -48,6 +48,7 @@ export default function YourOrder({ navigation }) {
       });
       return unsubscribe;
     }, []);
+
   return (
     <SafeAreaView style={{flex : 1}}>
     
@@ -59,7 +60,7 @@ export default function YourOrder({ navigation }) {
       <ModalLoading loading={isFetchingNextPage}/>
     </View>}
     onEndReached={fetchNextPage}
-    onEndReachedThreshold={0}
+    onEndReachedThreshold={0.5}
   />
 
   

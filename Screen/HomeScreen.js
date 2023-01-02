@@ -8,7 +8,6 @@ import HeaderApp from '../layout/HeaderApp';
 import messaging from '@react-native-firebase/messaging';
 import Mapbox from '../components/Mapbox';
 // import Geolocation from '@react-native-community/geolocation';
-
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
 
@@ -58,6 +57,7 @@ handleRequest()
   return (
     <SafeAreaView >
     <ScrollView>
+   
     <HeaderApp navigation={navigation}/>
   <View>
     {/* <Burger /> */}

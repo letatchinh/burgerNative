@@ -25,7 +25,12 @@ export default function Calculate({navigation}) {
       );
     },
   })
+  const onPress = () => {
+    // navigation.navigate("location");
+
+  }
   const addOrder = () => {
+    // onPress()
     if(user){
       const newOrder = {
         email : user.username,

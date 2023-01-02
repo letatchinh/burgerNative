@@ -23,6 +23,7 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Register from './Screen/Register';
+import { BottomNavigateApp } from './navigator/BottomNavigateApp';
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient()
@@ -36,7 +37,7 @@ const App = () => {
   
     <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerMode: 'screen',
         headerTintColor: 'white',
@@ -44,10 +45,11 @@ const App = () => {
       }}
     >
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeScreen"
+        component={BottomNavigateApp}
         options={{
           title: 'Home',
+          headerShown : false
         }}
       />
       <Stack.Screen
@@ -64,13 +66,13 @@ const App = () => {
           title: 'Register',
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="YourOrder"
         component={YourOrder}
         options={{
           title: 'YourOrder',
         }}
-      />
+      /> */}
       <Stack.Screen
         name="ConfirmOrder"
         component={ConfirmOrder}
