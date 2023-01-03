@@ -1,16 +1,19 @@
 
-import {View, Text, SafeAreaView, Alert, Image, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, SafeAreaView, Alert, Image, StyleSheet, ScrollView, PermissionsAndroid} from 'react-native';
 import React, { useCallback, useEffect } from 'react';
 import Burger from '../components/Burger';
 import Calculate from '../components/Calculate';
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import HeaderApp from '../layout/HeaderApp';
 import messaging from '@react-native-firebase/messaging';
 import Mapbox from '../components/Mapbox';
+import { addAddress } from '../redux/userSlice';
+import Geolocation from '@react-native-community/geolocation';
+import axiosClient from '../Constan/AxiosConfig';
 // import Geolocation from '@react-native-community/geolocation';
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
-
+  const dispatch = useDispatch()
   
   async function getToken(){
     const token = await messaging().getToken()
@@ -50,8 +53,39 @@ const handleRequest = async() => {
 }
 handleRequest()
 // Geolocation.getCurrentPosition((info => console.log(info)));
+const resquestPermissonLocation = async () => {
+  if (Platform.OS === 'ios') {
+    Geolocation.getCurrentPosition(async(info) => {
+      const {latitude, longitude} = info.coords;
+      const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAqT8WYorXQrrDXxg2WzqLAEScpB0ZZgwc`)
+      dispatch(addAddress({latLong : {latitude, longitude} , place : res.data.results[0].formatted_address}))
+    });
+  } else {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Device current location permission',
+          message: 'Allow app to get your current location',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(async(info) => {
+          const {latitude, longitude} = info.coords;
+          const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAqT8WYorXQrrDXxg2WzqLAEScpB0ZZgwc`)
+          dispatch(addAddress({latLong : {latitude, longitude} , place : res.data.results[0].formatted_address , permission : true}))
+        });
+      } else {
+        console.log('Location permission denied');
+        dispatch(addAddress({permission : false}))
 
-
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+};
+resquestPermissonLocation()
   },[])
      
   return (
