@@ -1,0 +1,1 @@
+export const titleAddOrder = "Bạn Vừa mới tạo order"

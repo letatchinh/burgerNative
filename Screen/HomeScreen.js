@@ -1,23 +1,21 @@
 
 import {View, Text, SafeAreaView, Alert, Image, StyleSheet, ScrollView, PermissionsAndroid} from 'react-native';
-import React, { useCallback, useEffect } from 'react';
-import Burger from '../components/Burger';
+import React, {  useEffect, useState } from 'react';
 import Calculate from '../components/Calculate';
 import {  useDispatch, useSelector } from 'react-redux';
 import HeaderApp from '../layout/HeaderApp';
 import messaging from '@react-native-firebase/messaging';
-import Mapbox from '../components/Mapbox';
-import { addAddress } from '../redux/userSlice';
+import { addAddress, addToken } from '../redux/userSlice';
 import Geolocation from '@react-native-community/geolocation';
 import axiosClient from '../Constan/AxiosConfig';
+import ModalConfirmOrder from '../components/ModalConfirmOrder';
 // import Geolocation from '@react-native-community/geolocation';
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
   const dispatch = useDispatch()
-  
   async function getToken(){
     const token = await messaging().getToken()
-    console.log(token,"token")
+    dispatch(addToken(token))
   }
   useEffect(() => {
     async function requestUserPermission() {
@@ -91,7 +89,6 @@ resquestPermissonLocation()
   return (
     <SafeAreaView >
     <ScrollView>
-   
     <HeaderApp navigation={navigation}/>
   <View>
     {/* <Burger /> */}
@@ -106,7 +103,6 @@ resquestPermissonLocation()
    </View>
     <Calculate navigation={navigation}/>
   </View>
-  {/* <Mapbox /> */}
     </ScrollView>
 
     </SafeAreaView>

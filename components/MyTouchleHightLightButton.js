@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 
-export default function MyTouchleHightLightButton({onLongPress,onPress,title}) {
+export default function MyTouchleHightLightButton({onLongPress,onPress,title,style}) {
   return (
-    <TouchableHighlight underlayColor="#87CEFA" style={styles.longButton} onPress={onPress}   onLongPress={onLongPress}>
+    <TouchableHighlight underlayColor="#87CEFA" style={{...style,...styles.longButton}} onPress={onPress}   onLongPress={onLongPress}>
     <View >
       <Text style={{color : "#1E90FF"}}>{title}</Text>
     </View>

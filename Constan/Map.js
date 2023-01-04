@@ -1,0 +1,1 @@
+export const addressStore =  {latitude: 16.0599416, longitude: 108.2097422}

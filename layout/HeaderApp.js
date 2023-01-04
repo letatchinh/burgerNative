@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native'
+import { View, Text, TouchableOpacity} from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,15 +37,12 @@ useEffect(() => {
 
   return (
     <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row' , padding : 10}}>
-    {/* {user ?  <MyTouchleHightLightButton onPress={() => navigation.navigate('YourOrder')} title="Your Order"/> : <MyTouchleHightLightButton title={IconHome}/>} */}
-    <View style={{maxWidth : '80%' , flexDirection : 'row' , alignItems : 'center'}}>
+    <TouchableOpacity onPress={() => navigation.navigate("SearchAddress")} style={{maxWidth : '60%' , flexDirection : 'row' , alignItems : 'center'}}>
       <Text><EvilIcons name="location" size={22} color="#1E90FF"/></Text>
            <Text numberOfLines={1} style={{color : 'black' , fontWeight : '700'}}>  {address.place || ""}</Text>
-
-    </View>
+    </TouchableOpacity>
       {user ?  <View style={{flexDirection : 'row' , alignItems : 'center'}}>
       <Text style={{color : 'black'}}>Hello , {user.name}</Text>
-      {/* <Button onPress={removeItem}  title='Logout'/> */}
       <MyTouchleHightLightButton onLongPress={removeItem} title={IconLogout}/>
       </View> :  <MyTouchleHightLightButton onPress={() => navigation.navigate('Login')} title={IconLogin}/>}
     </View>

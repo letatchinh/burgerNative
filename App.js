@@ -24,6 +24,7 @@ import { store } from './redux/store';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Register from './Screen/Register';
 import { BottomNavigateApp } from './navigator/BottomNavigateApp';
+import SearchBoxAddress from './Screen/SearchBoxAddress';
 
 const Stack = createStackNavigator();
 const queryClient = new QueryClient()
@@ -78,6 +79,20 @@ const App = () => {
         component={ConfirmOrder}
         options={{
           title: 'ConfirmOrder',
+        }}
+      />
+      <Stack.Screen
+        name="SearchAddress"
+        component={SearchBoxAddress}
+        options={{
+          headerStyle: {
+            backgroundColor: 'white',
+          },
+          headerTintColor: '#999',
+          headerTitleStyle: {
+             textAlign  : 'center'
+          },
+          title: 'Nhập Địa chỉ',
         }}
       />
     </Stack.Navigator>
