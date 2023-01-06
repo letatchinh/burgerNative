@@ -1,8 +1,9 @@
 import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import EvilIcons  from 'react-native-vector-icons/EvilIcons';
+import AppButton from './AppButton';
 const IconLocaltion =  <EvilIcons name="location" size={30} color="#1E90FF"/>
-export default function ItemOrders({orders}) {
+export default function ItemOrdersAdmin({orders,navigation}) {
   const {order,address} = orders.item
   let ar = []
   for (const key in order) {
@@ -24,6 +25,7 @@ export default function ItemOrders({orders}) {
         <Text style={{color : 'black'}}>Price</Text>
         <Text style={{color : 'black'}}>{orders.item.price}</Text>
       </View>
+      <AppButton onPress={() => navigation.navigate("orderDetails",{param : orders.item})} title="Xem thêm"/>
     </ScrollView>
   )
 }

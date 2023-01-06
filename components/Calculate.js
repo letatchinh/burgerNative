@@ -13,6 +13,7 @@ export default function Calculate({navigation}) {
   const user = useSelector(state => state.user.user) || null
   const token = useSelector(state => state.user.token) || null
   const address = useSelector(state => state.user.address) || null
+  console.log(address);
   const [modalVisible, setModalVisible] = useState(false);
 
   const {isLoading,mutate} = useMutation({
@@ -22,7 +23,9 @@ export default function Calculate({navigation}) {
     onError: (error, variables, context) => {
    console.log(error);
     },
-    onSuccess: (data, variables, context) => {
+    onSuccess: async(data, variables, context) => {
+      const res = await axiosClient.post("/sendFirebaseReactNative",{title : titleAddOrder , body : "order nè" , token })
+      console.log(res);
       Alert.alert(
         "Success",
         `Order Success`,
@@ -32,29 +35,23 @@ export default function Calculate({navigation}) {
       );
     },
   })
-  const onPress = () => {
-    // navigation.navigate("location");
-
-  }
   const addOrder = () => {
     setModalVisible(true)
   }
   const handleConfirmOrder = async() => {
-  // if(user){
-  //     const newOrder = {
-  //       email : user.username,
-  //       order : burgerInfo.order,
-  //       price : burgerInfo.totalBill,
-  //       timeStamp : Date.now(),
-  //       address
-  //     }
-  //     mutate(newOrder)
-  //   }
-  //   else{
-  //     navigation.navigate("Login")
-  //   }
-  const res = await axiosClient.post("/sendFirebaseReactNative",{title : titleAddOrder , body : "order nè" , token })
-  console.log(res);
+  if(user){
+      const newOrder = {
+        email : user.username,
+        order : burgerInfo.order,
+        price : burgerInfo.totalBill,
+        timeStamp : Date.now(),
+        address
+      }
+      mutate(newOrder)
+    }
+    else{
+      navigation.navigate("Login")
+    }
   }
   return (
     <View style={{justifyContent : 'center' , alignItems : 'center' , marginTop : 20}}>

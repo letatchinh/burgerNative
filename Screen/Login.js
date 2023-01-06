@@ -35,10 +35,9 @@ export default function Login({ navigation }) {
     onSuccess: async(data, variables, context) => {
       await AsyncStorage.setItem('userBurger', JSON.stringify(data.data))
       dispatch(addUser(data.data))
-        navigation.navigate('Home')
+        navigation.navigate('HomeScreen')
     },
   })
-  console.log(errors.username);
   const onSubmit = async(data) => {
     mutate(data)
   };

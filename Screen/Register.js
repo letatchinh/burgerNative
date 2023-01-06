@@ -33,7 +33,7 @@ export default function Register({ navigation }) {
     },
     onSuccess: (data, variables, context) => {
       dispatch(addUser(data.data))
-        navigation.navigate('Home')
+        navigation.navigate('HomeScreen')
     },
   })
   const onSubmit = async(data) => {
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20,
     minWidth: '100%',
-    textTransform: 'uppercase'
+    // textTransform: 'uppercase'
   },
 });

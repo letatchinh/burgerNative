@@ -24,3 +24,11 @@ export const getOrderByEmailInfinityScroll = async(action) => {
         console.log(error);
     }
 }
+export const getAllOrderInfinityScroll = async(action) => {
+    try{
+        const res = await axiosClient.get(`/api/getAllOrder?page=${action.pageParam}&limit=4`)
+        return res.data
+    } catch (error) {
+        console.log(error);
+    }
+}

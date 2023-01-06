@@ -9,6 +9,7 @@ import { addAddress, addToken } from '../redux/userSlice';
 import Geolocation from '@react-native-community/geolocation';
 import axiosClient from '../Constan/AxiosConfig';
 import ModalConfirmOrder from '../components/ModalConfirmOrder';
+import {KEY_API_GOOGLE_MAP} from '@env'
 // import Geolocation from '@react-native-community/geolocation';
 export default function HomeScreen({ navigation }) {
   const totalBill = useSelector(state => state.burger.totalBill)
@@ -55,7 +56,7 @@ const resquestPermissonLocation = async () => {
   if (Platform.OS === 'ios') {
     Geolocation.getCurrentPosition(async(info) => {
       const {latitude, longitude} = info.coords;
-      const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAqT8WYorXQrrDXxg2WzqLAEScpB0ZZgwc`)
+      const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KEY_API_GOOGLE_MAP}`)
       dispatch(addAddress({latLong : {latitude, longitude} , place : res.data.results[0].formatted_address}))
     });
   } else {
@@ -70,7 +71,8 @@ const resquestPermissonLocation = async () => {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         Geolocation.getCurrentPosition(async(info) => {
           const {latitude, longitude} = info.coords;
-          const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAqT8WYorXQrrDXxg2WzqLAEScpB0ZZgwc`)
+          const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${KEY_API_GOOGLE_MAP}`)
+
           dispatch(addAddress({latLong : {latitude, longitude} , place : res.data.results[0].formatted_address , permission : true}))
         });
       } else {
