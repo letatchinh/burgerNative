@@ -12,7 +12,7 @@ const IconHome =  <Icon name='home'  size={20} color="#1E90FF" />
 const IconLocaltion =  <EvilIcons name="location" size={22} color="#1E90FF"/>
 export default function HeaderApp({ navigation }) {
   const address = useSelector(state => state.user.address) || ""
-    
+    console.log(address,"address");
     const user = useSelector(state => state.user.user)
 const dispatch =useDispatch()
 const _retrieveData = async () => {

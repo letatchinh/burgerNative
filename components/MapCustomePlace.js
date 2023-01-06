@@ -11,8 +11,14 @@ import MapViewDirections from 'react-native-maps-directions';
 import {KEY_API_GOOGLE_MAP} from '@env';
 import axiosClient from '../Constan/AxiosConfig';
 import AppButton from './AppButton';
-import { useDispatch } from 'react-redux';
-import { addAddressUserSelect } from '../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAddress, addAddressUserSelect } from '../redux/userSlice';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/AntDesign';
+
+const IconLocaltion = <Ionicons name="location" size={25} color="#DF493A" />;
+const IconCheck = <Icon name="check" size={25} color="white" />;
+
 export default function MapCustomePlace({address}) {
   const dispatch = useDispatch()
   const origin = {
@@ -20,6 +26,7 @@ export default function MapCustomePlace({address}) {
     longitude: addressStore.longitude,
   };
   const mapRef = useRef(null);
+  const addressUserSelect = useSelector(state => state.user.addressUserSelect);
   const [statusTitleAddress, setStatusTitleAddress] = useState(true);
   const [destination, setDestination] = useState(address);
   const [AddressChange, setAddressChange] = useState(address);
@@ -32,23 +39,19 @@ export default function MapCustomePlace({address}) {
 
     setStatusTitleAddress(true)
     const res = await axiosClient.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${AddressChange.latitude},${AddressChange.longitude}&key=${KEY_API_GOOGLE_MAP}`)
-    dispatch(addAddressUserSelect({location : res.data.results[0].geometry.location , place : res.data.results[0].formatted_address}))
+    dispatch(addAddressUserSelect({location: {latitude : res.data.results[0].geometry.location.lat , longitude : res.data.results[0].geometry.location.lng}, place : res.data.results[0].formatted_address}))
   }
+  
+
   return (
     <View style={styles.container}>
    {  address &&  <MapView ref={mapRef}
         onRegionChange={region => {
-          if(timeout){
-            clearTimeout(timeout)
-          }
-            const timeout = setTimeout(() => {
-              console.log(region)
               setAddressChange(region)
             setStatusTitleAddress(false)
-            },500)
 
         }}
-        // showsMyLocationButton={false}
+        showsMyLocationButton={true}
         loadingEnabled={true}
         
         provider={PROVIDER_GOOGLE}
@@ -57,8 +60,8 @@ export default function MapCustomePlace({address}) {
         region={{
           latitude: address.latitude,
           longitude: address.longitude,
-          latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+          latitudeDelta: 0.0041,
+longitudeDelta: 0.0021
         }}>
         <MapViewDirections
           origin={origin}
@@ -146,9 +149,18 @@ export default function MapCustomePlace({address}) {
          
         )} */}
       </MapView>}
-      <AppButton  onPress={() => {
-            handleChanges()
-      }} title="Ok"/>
+      
+      <View style={styles.ConfirmBox}>
+        <View style={{backgroundColor : '#000',marginTop : 20  , width : '80%', paddingHorizontal : 10 , paddingVertical : 15 , borderRadius : 10}}>
+        <View style={{flexDirection : 'row' , alignItems : 'center'}}>
+        <Text >{IconLocaltion}</Text>
+        <Text style={{color : 'white'}}>{addressUserSelect.place}</Text>
+        </View>
+        </View>
+        <View style={{flexDirection : 'row' , alignItems : 'center' , marginTop : 20}}>
+        <AppButton  backgroundColor='#30BB6F'  onPress={handleChanges} title={IconCheck}/>
+        </View>
+      </View>
     </View>
   );
 }
@@ -175,5 +187,15 @@ const styles = StyleSheet.create({
     left : '50%',
     top : '50%',
     zIndex : 10000
-  }
+  },
+  ConfirmBox: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: '78%',
+    zIndex: 10,
+    backgroundColor: '#ffffffab',
+    alignItems: 'center',
+  },
 });

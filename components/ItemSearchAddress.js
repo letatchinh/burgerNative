@@ -25,16 +25,16 @@ export default function ItemSearchAddress({item,navigation}) {
           flexDirection: 'row',
           alignItems: 'center',
         }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{fontWeight: '800', fontSize: 18, marginHorizontal: 10}}>
+        <View style={{flexDirection: 'row', alignItems: 'center',width : '100%' , justifyContent : 'space-between' }}>
+          <Text style={{fontWeight: '800', fontSize: 18, marginHorizontal: 5}}>
             {IconLocaltionItem}
           </Text>
-          <View>
-            <Text style={{fontWeight : '800' }}> {convertAddressFirst(item.place)}</Text>
-            <Text style={{ maxWidth : '93%'}} numberOfLines={1}> {item.place}</Text>
+          <View style={{flexGrow : 1 , overflow : 'hidden'}}>
+            <Text style={{fontWeight : '800' , color : 'black' }}> {convertAddressFirst(item.place)}</Text>
+            <Text style={{ maxWidth : '95%',  color : 'black'}} numberOfLines={1}> {item.place}</Text>
           </View>
         </View>
-        <Text>{IconRight}</Text>
+        <Text style={{marginLeft : -7}}>{IconRight}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -1,8 +1,8 @@
-import {View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import EvilIcons  from 'react-native-vector-icons/EvilIcons';
 import ItemSearchAddress from '../components/ItemSearchAddress';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import  { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const IconLocaltion =  <EvilIcons name="location" size={35} color="#1E90FF"/>
 export default function SearchAddress({navigation}) {
@@ -10,22 +10,32 @@ export default function SearchAddress({navigation}) {
     const [listAddressUser,setListAddressUser] = useState([])
     const readItemFromStorage = async () => {
         const item = await getItem();
-        setListAddressUser(JSON.parse(item));
+        if(item){
+
+          setListAddressUser(JSON.parse(item));
+        }
       };
+
     useEffect(() => {
         readItemFromStorage()
     },[])
     return (
     <SafeAreaView>
       <ScrollView>
-        <View style={styles.titleTop}>
-          <Text style={{fontWeight: '700', fontSize: 20}}>Address Ship</Text>
-          <Text>We will ship everywhere</Text>
+       <View style={{flexDirection : 'row' , justifyContent : 'space-between'}}>
+       <View style={styles.titleTop}>
+          <Text style={{fontWeight: '700', fontSize: 20 , color : 'black'}}>Address Ship</Text>
+          <Text style={{color : 'black'}}>We will ship everywhere</Text>
         </View>
+        <View style={{width : 170 , height : 140}}>
+          <Image style={{width : '100%' , height : '100%' , resizeMode : 'cover'}} source={require("../assets/shipperMan.png")}/>
+        </View>
+       </View>
         <TouchableOpacity onPress={() => navigation.navigate("enterAddress")} activeOpacity={0.9} style={styles.enterAddress}>
-    <Text style={{fontWeight : '800' ,fontSize : 18}}>{IconLocaltion} Enter...  </Text>
+    <Text style={{fontWeight : '800' ,fontSize : 18 , color : 'black'}}>{IconLocaltion} Enter...  </Text>
         </TouchableOpacity>
         <View>
+        <Text style={{color : '#999' ,fontWeight : '700' , fontSize : 20 , marginHorizontal : 20}}>History Find</Text>
         {listAddressUser?.map((e,i) =>  <ItemSearchAddress navigation={navigation}  key={i} item={e}/>)}
       
         </View>
@@ -35,8 +45,8 @@ export default function SearchAddress({navigation}) {
 }
 const styles = StyleSheet.create({
   titleTop: {
-    padding: 40,
-    backgroundColor: '#0aa44c4f',
+    padding: 60,
+    backgroundColor: '#30BB6F',
   },
   enterAddress: {
     marginHorizontal : 20,

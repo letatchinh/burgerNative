@@ -11,7 +11,6 @@ import {
   import {KEY_API_GOOGLE_MAP} from '@env';
   export default function MapItemOrderAdmin({addressUser}) {
     const {address} = addressUser
-    console.log(address,"address");
     const origin = {
       latitude: addressStore.latitude,
       longitude: addressStore.longitude,
@@ -23,13 +22,21 @@ import {
     const mapRef = useRef(null);
 
     const [distanceAndDuration, setDistanceAndDuration] = useState(null);
+    const EDGE_PADDING = {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    }
     useEffect(() => {
-    mapRef.current.fitToElements({animated : true})
+setTimeout(() => {
+  mapRef.current.fitToElements({animated : true,eedgePadding : EDGE_PADDING})
+}, 500);   
 },[mapRef])
     return (
       <View style={styles.container}>
     <MapView ref={mapRef}
-          loadingEnabled={true}
+          // loadingEnabled={true}
           
           provider={PROVIDER_GOOGLE}
           style={styles.map}

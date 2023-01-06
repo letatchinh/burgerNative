@@ -66,7 +66,7 @@ export default function NavigationContainor() {
         component={SearchAddress}
         options={{
           headerStyle: {
-            backgroundColor: 'white',
+            backgroundColor: '#30BB6F',
           },
           headerTintColor: '#999',
           headerTitleStyle: {
