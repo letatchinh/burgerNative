@@ -17,7 +17,7 @@ export function BottomNavigateApp() {
 >
       <Tab.Screen options={{tabBarIcon : ({color}) => <Icon name="home" size={22} color={color}/>}} name="Home" component={HomeScreen} />
       <Tab.Screen options={{tabBarIcon : ({color}) => <Icon name="wallet" size={22} color={color}/> , headerShown : true , headerTitleAlign : 'center'}} name="Order" component={user.isAdmin ? OrderAdmin : YourOrder} />
-      <Tab.Screen options={{tabBarIcon : ({color} ) => <Icon name="user" size={22} color={color}/> , headerShown : true , title : 'Infomation' , headerTitleAlign : 'center'}} name="Profile"  component={ProfileUser} />
+      <Tab.Screen options={{tabBarIcon : ({color} ) => <Icon name="user" size={22} color={color}/> }} name="Profile"  component={ProfileUser} />
       {/* <Tab.Screen options={{tabBarIcon : ({color}) => <EvilIcons name="location" size={22} color={color}/>}} name="Location" component={MyMap} /> */}
     </Tab.Navigator>
   );

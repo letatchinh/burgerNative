@@ -6405,6 +6405,11 @@
     "color" "^3.1.2"
     "use-event-callback" "^0.1.0"
 
+"react-native-parallax-header@^1.1.4":
+  "integrity" "sha512-7RnuBaZondC49G85JKEJvYrELjbrb/42MB6z4WbTeiF58HRHi8dq2aNa1HUwVLe2DS9GGp7hyZ7RkeEZG1wuzA=="
+  "resolved" "https://registry.npmjs.org/react-native-parallax-header/-/react-native-parallax-header-1.1.4.tgz"
+  "version" "1.1.4"
+
 "react-native-reanimated@^2.13.0":
   "integrity" "sha512-yUHyYVIegWWIza4+nVyS3CSmI/Mc8kLFVHw2c6gnSHaYhYA4LeEjH/jBkoMzHk9Xd0Ra3cwtjYKAMG8OTp6JVg=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.13.0.tgz"
