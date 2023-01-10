@@ -23,14 +23,14 @@ import {
 
     const [distanceAndDuration, setDistanceAndDuration] = useState(null);
     const EDGE_PADDING = {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
+      top: 20,
+      right: 50,
+      bottom: 20,
+      left: 50
     }
     useEffect(() => {
 setTimeout(() => {
-  mapRef.current.fitToElements({animated : true,eedgePadding : EDGE_PADDING})
+  mapRef.current.fitToElements({animated : true,edgePadding : EDGE_PADDING})
 }, 500);   
 },[mapRef])
     return (

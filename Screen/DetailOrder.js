@@ -4,8 +4,8 @@ import MapItemOrderAdmin from '../components/MapItemOrderAdmin';
 
 export default function DetailOrder({route}) {
   return (
-    // <View style={{flex : 1}}>
+    <View style={{flex : 1}}>
         <MapItemOrderAdmin addressUser={route.params.param}/>
-    // </View>
+     </View>
   )
 }
