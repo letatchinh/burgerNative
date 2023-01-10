@@ -1,11 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
-import { color } from 'react-native-reanimated';
 import Icon  from 'react-native-vector-icons/AntDesign';
-import EvilIcons  from 'react-native-vector-icons/EvilIcons';
 import { useSelector } from 'react-redux';
 import HomeScreen from '../Screen/HomeScreen';
-import MyMap from '../Screen/MyMap';
 import OrderAdmin from '../Screen/OrderAdmin';
 import ProfileUser from '../Screen/ProfileUser';
 import YourOrder from '../Screen/YourOrder';
