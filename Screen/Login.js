@@ -3,12 +3,13 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, StyleSheet, Text, TextInput, View , Alert, ActivityIndicator} from 'react-native';
 import { HelperText } from 'react-native-paper';
 import { useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginService } from '../apis/service';
 import MyTouchleHightLightButton from '../components/MyTouchleHightLightButton';
 import { RegexEmail } from '../Constan/Regex';
 import { addUser } from '../redux/userSlice';
 export default function Login({ navigation }) {
+  const token = useSelector(state => state.user.token)
   const dispatch = useDispatch()
   const {
     control,
@@ -39,7 +40,7 @@ export default function Login({ navigation }) {
     },
   })
   const onSubmit = async(data) => {
-    mutate(data)
+    mutate({...data,token})
   };
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

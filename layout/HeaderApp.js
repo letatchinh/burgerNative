@@ -12,7 +12,6 @@ const IconHome =  <Icon name='home'  size={20} color="#1E90FF" />
 const IconLocaltion =  <EvilIcons name="location" size={22} color="#1E90FF"/>
 export default function HeaderApp({ navigation }) {
   const address = useSelector(state => state.user.address) || ""
-    console.log(address,"address");
     const user = useSelector(state => state.user.user)
 const dispatch =useDispatch()
 const _retrieveData = async () => {
@@ -36,13 +35,13 @@ useEffect(() => {
 },[])
 
   return (
-    <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row' , padding : 10}}>
+    <View style={{justifyContent : 'space-between' , alignItems : 'center' , flexDirection : 'row',paddingVertical : 5 }}>
     <TouchableOpacity onPress={() => navigation.navigate("SearchAddress")} style={{maxWidth : '60%' , flexDirection : 'row' , alignItems : 'center'}}>
       <Text><EvilIcons name="location" size={22} color="#1E90FF"/></Text>
            <Text numberOfLines={1} style={{color : 'black' , fontWeight : '700'}}>  {address.place || ""}</Text>
     </TouchableOpacity>
       {user ?  <View style={{flexDirection : 'row' , alignItems : 'center'}}>
-      <Text style={{color : 'black'}}>Hello , {user.name}</Text>
+      <Text style={{color : 'black'}}>Hello,{user.name}</Text>
       <MyTouchleHightLightButton onLongPress={removeItem} title={IconLogout}/>
       </View> :  <MyTouchleHightLightButton onPress={() => navigation.navigate('Login')} title={IconLogin}/>}
     </View>

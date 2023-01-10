@@ -19,10 +19,9 @@ import {KEY_API_GOOGLE_MAP} from '@env';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addAddress,
-  addAddressUserOld,
   addAddressUserSelect,
 } from '../redux/userSlice';
-import AsyncStorage, {
+import  {
   useAsyncStorage,
 } from '@react-native-async-storage/async-storage';
 import Geolocation from '@react-native-community/geolocation';
@@ -34,7 +33,6 @@ const IconArrowright = <Icon name="arrowright" size={20} color="black" />;
 const SearchBoxAddress = ({navigation}) => {
   const {getItem, setItem} = useAsyncStorage('listAddressUser');
   const addressUserSelect = useSelector(state => state.user.addressUserSelect);
-  console.log(addAddressUserSelect, 'addAddressUserSelect');
   const dispatch = useDispatch();
   const SetAsynStored = async item => {
     const value = await getItem();
@@ -74,7 +72,7 @@ const SearchBoxAddress = ({navigation}) => {
           marginBottom: 20,
           justifyContent: 'flex-end',
         }}>
-        {/* <MyTouchleHightLightButton
+        <MyTouchleHightLightButton
           onPress={() => {
             Geolocation.getCurrentPosition(async info => {
               const {latitude, longitude} = info.coords;
@@ -91,7 +89,7 @@ const SearchBoxAddress = ({navigation}) => {
           }}
           title="Lấy Địa chỉ hiện tại"
           style={{alignSelf: 'center'}}
-        /> */}
+        />
         <AppButton
           onPress={handleConfirmAddress}
           style={{marginRight: 20 }}

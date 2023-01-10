@@ -20,7 +20,6 @@ const ModalLoading = ({loading}) => {
     }
   }, [loading]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  console.log(fadeAnim,"fadeAnim");
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
 

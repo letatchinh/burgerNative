@@ -3,7 +3,6 @@ export const getdataStored = async () => {
       const value = await AsyncStorage.getItem('listAddressUser');
       if (value !== null) {
         // We have data!!
-        console.log(value);
         return value
       }
     } catch (error) {

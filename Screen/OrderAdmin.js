@@ -13,8 +13,9 @@ import ItemOrdersAdmin from '../components/ItemOrdersAdmin'
 export default function OrderAdmin({ navigation }) {
   const dispatch = useDispatch()
   const [dataShow,setDataShow] = useState([])
+  const [refreshing,SetRefreshing] = useState(false)
   const user = useSelector(state => state.user.user) || null
-  const {data,isFetchingNextPage , isFetching, hasNextPage , fetchNextPage } = useInfiniteQuery(
+  const {data,isFetchingNextPage , isFetching, hasNextPage , fetchNextPage ,refetch } = useInfiniteQuery(
     [user && user.username],
     ({ pageParam = 1 }) => getAllOrderInfinityScroll({pageParam,email : user.username}),
     {
@@ -38,8 +39,7 @@ export default function OrderAdmin({ navigation }) {
     data && data.pages && data.pages.map(e => e && e.arrResponse && e.arrResponse.map((e,i) =>  newData.push(e)))
     setDataShow(newData)
   },[data])
-  console.log(dataShow,"data");
-    const logout = () => {
+    const logout = () => {  
       removeItem()
       dispatch(removeUser())
       navigation.navigate("Home")
@@ -63,6 +63,10 @@ export default function OrderAdmin({ navigation }) {
     </View>}
     onEndReached={fetchNextPage}
     onEndReachedThreshold={0.5}
+    refreshing={refreshing}
+    onRefresh={() => {
+      refetch()
+    }}
   />
 
   

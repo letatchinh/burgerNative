@@ -12,14 +12,16 @@ import ModalLoading from '../components/ModalLoading'
 export default function YourOrder({ navigation }) {
   const dispatch = useDispatch()
   const [dataShow,setDataShow] = useState([])
+  const [refreshing,SetRefreshing] = useState(false)
   const user = useSelector(state => state.user.user) || null
-  const {data,isFetchingNextPage , isFetching, hasNextPage , fetchNextPage } = useInfiniteQuery(
+  const {data,isFetchingNextPage , isFetching, hasNextPage , fetchNextPage ,refetch } = useInfiniteQuery(
     [user && user.username],
     ({ pageParam = 1 }) => getOrderByEmailInfinityScroll({pageParam,email : user.username}),
     {
       getNextPageParam :(_lastPage , pages) => {
         if(_lastPage && _lastPage.pages){
           if(pages.length < _lastPage.pages){
+            
             return pages.length + 1
           }
           else{
@@ -59,8 +61,12 @@ export default function YourOrder({ navigation }) {
     ListFooterComponent={() => <View style={{display : !hasNextPage ? "none" : 'flex'}}>
       <ModalLoading loading={isFetchingNextPage}/>
     </View>}
-    onEndReached={fetchNextPage}
-    onEndReachedThreshold={0.5}
+    onEndReached={() => {fetchNextPage() ; SetRefreshing(false)}}
+    onEndReachedThreshold={1}
+    refreshing={refreshing}
+    onRefresh={() => {
+      refetch()
+    }}
   />
 
   

@@ -27,7 +27,7 @@ export default function SearchAddress({navigation}) {
           <Text style={{fontWeight: '700', fontSize: 20 , color : 'black'}}>Address Ship</Text>
           <Text style={{color : 'black'}}>We will ship everywhere</Text>
         </View>
-        <View style={{width : 170 , height : 140}}>
+        <View style={{width : 170 , height : 200}}>
           <Image style={{width : '100%' , height : '100%' , resizeMode : 'cover'}} source={require("../assets/shipperMan.png")}/>
         </View>
        </View>

@@ -14,7 +14,6 @@ import SearchAddress from '../Screen/SearchAddress';
 const Stack = createStackNavigator();
 export default function NavigationContainor() {
     const user = useSelector(state => state.user.user)
-    console.log(user,"user");
   return (
     <NavigationContainer>
     <Stack.Navigator

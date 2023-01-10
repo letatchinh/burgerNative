@@ -1,7 +1,7 @@
 import axiosClient from "../Constan/AxiosConfig"
 
 export const LoginService = async(account) => {
-    const res = await axiosClient.post("api/users",account)
+    const res = await axiosClient.post("api/loginNative",account)
     return res
 }
 export const RegisterService = async(account) => {
@@ -14,6 +14,10 @@ export const AddOrderSerive = async(order) => {
 }
 export const getOrderByEmail = async(email) => {
     const res = await axiosClient.get(`api/userOrder/${email}`)
+    return res
+}
+export const addTokenUser = async(token) => {
+    const res = await axiosClient.post(`api/addTokenUser`,token)
     return res
 }
 export const getOrderByEmailInfinityScroll = async(action) => {

@@ -13,7 +13,6 @@ export default function Calculate({navigation}) {
   const user = useSelector(state => state.user.user) || null
   const token = useSelector(state => state.user.token) || null
   const address = useSelector(state => state.user.address) || null
-  console.log(address);
   const [modalVisible, setModalVisible] = useState(false);
 
   const {isLoading,mutate} = useMutation({
@@ -25,7 +24,6 @@ export default function Calculate({navigation}) {
     },
     onSuccess: async(data, variables, context) => {
       const res = await axiosClient.post("/sendFirebaseReactNative",{title : titleAddOrder , body : "order nè" , token })
-      console.log(res);
       Alert.alert(
         "Success",
         `Order Success`,
