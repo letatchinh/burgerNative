@@ -29,7 +29,7 @@ const ParallaxHeader = ({title,imageHeader,renderNavBar,renderContent}) => {
         navbarColor="#3498db"
         titleStyle={styles.titleStyle}
         title={title()}
-        backgroundImage={require(imageHeader)}
+        backgroundImage={imageHeader}
         backgroundImageScale={1.2}
         renderNavBar={renderNavBar}
         renderContent={renderContent}
